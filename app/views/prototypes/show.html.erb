@@ -2,7 +2,7 @@
   <div class="inner">
     <div class="prototype__wrapper">
       <p class="prototype__hedding">
-        <%= "プロトタイプのタイトル"%>
+        <%= @prototype.title %>
       </p>
       <%# @prototype.user.id←idはカラムを取り出すuserはモデル %>
       <%= link_to "by #{@prototype.user.name}", user_path(@prototype.user.id), method: :get, class: :prototype__user %>
@@ -11,7 +11,7 @@
         <div class="prototype__manage">
         <%# 編集も削除も一つの処理なのでidでパスを渡すそのためのコントローラーで＠prototypeをfind(params)にしてあるuser_idとか要らない %>
           <%= link_to "編集する", edit_prototype_path(@prototype.id), method: :get, class: :prototype__btn %>
-          <%= link_to "削除する", prototype_path(@prototype.id), method: :delete, class: :prototype__btn %>
+          <%= link_to "削除する", prototype_path(current_user.id), method: :delete, class: :prototype__btn %>
         </div>
       <% end %>
       <%# // プロトタイプの投稿者とログインしているユーザーが同じであれば上記を表示する %>
