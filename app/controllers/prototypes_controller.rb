@@ -1,5 +1,8 @@
 class PrototypesController < ApplicationController
-before_action :authenticate_user!, only: [:new, :edit, :destroy, :update, :create]
+  before_action :set_prototype, except: [:index, :new, :create]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :contributor_confirmation, only: [:edit, :update, :destroy]
+# before_action :authenticate_user!, only: [:new, :edit, :destroy, :update, :create]
 # before_action :move_to_index, only: [:update]
 
   def index
@@ -65,4 +68,12 @@ before_action :authenticate_user!, only: [:new, :edit, :destroy, :update, :creat
   #     redirect_to root_path
   #   end
   # end
+  def set_prototype
+    @prototype = Prototype.find(params[:id])
+  end
+
+  def contributor_confirmation
+    
+    redirect_to root_path unless current_user == @prototype.user
+  end
 end
